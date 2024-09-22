@@ -1,8 +1,8 @@
-﻿using Baitap07.Data;
-using Baitap07.Models;
+﻿using Baitapvenha03.Data;
+using Baitapvenha03.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Baitap07.Controllers
+namespace Baitapvenha03.Controllers
 {
     public class TheLoaiController : Controller
     {
@@ -13,30 +13,13 @@ namespace Baitap07.Controllers
         }
         public IActionResult Index()
         {
+            var theLoaiList = _db.TheLoai
+                            .Where(t => t.Id > 3)
+                            .ToList();
             var theloai = _db.TheLoai.ToList();
-            ViewBag.TheLoai = theloai;
+            ViewBag.TheLoai = theLoaiList;
             return View();
         }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(TheLoai theloai)
-        {
-            if (ModelState.IsValid)
-            {
-                // Thêm thông tin vào bảng TheLoai
-                _db.TheLoai.Add(theloai);
-                // Lưu lại
-                _db.SaveChanges();
-            }
-            return View();
-        }
-        [HttpGet]
         public IActionResult Edit(int id)
         {
             if (id == 0)
@@ -84,6 +67,16 @@ namespace Baitap07.Controllers
             _db.TheLoai.Remove(theloai);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var theloai = _db.TheLoai.Find(id);
+            return View(theloai);
         }
     }
 }
