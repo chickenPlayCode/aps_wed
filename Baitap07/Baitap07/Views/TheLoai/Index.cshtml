@@ -4,6 +4,10 @@
 }
 
 <div class="container">
+    <form asp-action="Search" method=" get">
+        <input type="text" name="searchString" placeholer= "Nhập thể loại cần tìm...."/>
+        <input type ="submit" value="Tìm kiếm"/>
+    </form>
     <table class="table">
         <thead>
         <th>Tên Thể loại</th>
@@ -26,6 +30,9 @@
                         </a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">
                             Delete
+                        </a> |
+                        <a asp-action="Detaiil" asp-route-id="@item.Id">
+                            Detaiil
                         </a>
                     </td>
                 </tr>

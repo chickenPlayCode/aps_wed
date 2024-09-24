@@ -1,6 +1,7 @@
 ﻿using Baitap07.Data;
 using Baitap07.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Baitap07.Controllers
 {
@@ -84,6 +85,34 @@ namespace Baitap07.Controllers
             _db.TheLoai.Remove(theloai);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public IActionResult Detaiil(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var theloai = _db.TheLoai.Find(id);
+            return View(theloai);
+        }
+        public IActionResult Search(string searchString)
+        {
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Sử dụng LINQ để tìm kiếm  
+                var theloai = _db.TheLoai
+                    .Where(tl => tl.Name.Contains(searchString))
+                    .ToList();
+
+                ViewBag.SearchString = searchString;
+                ViewBag.TheLoai = theloai;
+            }
+            else
+            {
+                var theloai = _db.TheLoai.ToList();
+                ViewBag.TheLoai = theloai;
+            }
+            return View("Index"); // Sử dụng lại View Index  
         }
     }
 }
