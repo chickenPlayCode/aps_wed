@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Danh sách Sách";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Thêm Sách</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Năm xuất bản</th>
+            <th>Tác giả</th>
+            <th>Thể loại</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.PublicationYear</td>
+                <td>@book.Author?.AuthorName</td>
+                <td>@book.Genre</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-warning">Chỉnh sửa</a>
+                    <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger">Xóa</a>
+                    <a asp-action="Details" asp-route-id="@book.BookId" class="btn btn-info">Chi tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

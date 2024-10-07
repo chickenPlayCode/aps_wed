@@ -1,0 +1,32 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = "Thêm Tác giả";
+}
+
+<div class="container">
+    <h3>Thêm Tác giả</h3>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post">
+        <label asp-for="AuthorName">Tên tác giả </label>
+        <input asp-for="AuthorName" type="text" class="form-control" />
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+        <br />
+
+        <label asp-for="Nationality">Quốc tịch </label>
+        <input asp-for="Nationality" type="text" class="form-control" />
+        <span asp-validation-for="Nationality" class="text-danger"></span>
+        <br />
+
+        <label asp-for="BirthYear">Năm sinh </label>
+        <input asp-for="BirthYear" type="number" class="form-control" />
+        <span asp-validation-for="BirthYear" class="text-danger"></span>
+
+        <button type="submit" class="btn btn-primary">Tạo mới</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
